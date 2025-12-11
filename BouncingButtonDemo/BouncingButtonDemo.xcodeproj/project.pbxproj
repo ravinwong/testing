@@ -11,6 +11,8 @@
 		A1000001000000000000002 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002000000000000002 /* SceneDelegate.swift */; };
 		A1000001000000000000003 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002000000000000003 /* ViewController.swift */; };
 		A1000001000000000000004 /* BouncingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002000000000000004 /* BouncingButton.swift */; };
+		A1000001000000000000005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000002000000000000006 /* Assets.xcassets */; };
+		A1000001000000000000006 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1000002000000000000007 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		A1000002000000000000003 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A1000002000000000000004 /* BouncingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncingButton.swift; sourceTree = "<group>"; };
 		A1000002000000000000005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1000002000000000000006 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A1000002000000000000007 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1000003000000000000001 /* BouncingButtonDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BouncingButtonDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -48,6 +52,8 @@
 				A1000002000000000000002 /* SceneDelegate.swift */,
 				A1000002000000000000003 /* ViewController.swift */,
 				A1000002000000000000004 /* BouncingButton.swift */,
+				A1000002000000000000006 /* Assets.xcassets */,
+				A1000002000000000000007 /* LaunchScreen.storyboard */,
 				A1000002000000000000005 /* Info.plist */,
 			);
 			path = BouncingButtonDemo;
@@ -119,6 +125,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1000001000000000000006 /* LaunchScreen.storyboard in Resources */,
+				A1000001000000000000005 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
