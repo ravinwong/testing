@@ -56,7 +56,6 @@
 				A1000002000000000000007 /* LaunchScreen.storyboard */,
 				A1000002000000000000005 /* Info.plist */,
 			);
-			path = BouncingButtonDemo;
 			sourceTree = "<group>";
 		};
 		A1000005000000000000003 /* Products */ = {
