@@ -60,6 +60,12 @@ class ShoppingViewModel: ObservableObject {
         items.remove(atOffsets: offsets)
     }
 
+    func updatePrice(for item: ShoppingItem, with text: String) {
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
+            items[index].recognizedPrice = recognizePrice(from: text)
+        }
+    }
+
     // MARK: - AI Price Recognition
 
     /// Recognizes price from text using pattern matching and NLP-like heuristics

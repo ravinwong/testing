@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct ItemRowView: View {
-    let item: ShoppingItem
+    @Binding var item: ShoppingItem
     let onToggle: () -> Void
     let onDelete: () -> Void
+    let onTextChange: (String) -> Void
 
     @State private var offset: CGFloat = 0
     @State private var isSwiping: Bool = false
+    @FocusState private var isEditing: Bool
 
     private let lineColor = Color(red: 220/255, green: 218/255, blue: 195/255)
     private let deleteThreshold: CGFloat = -80
@@ -61,16 +63,19 @@ struct ItemRowView: View {
                 }
                 .buttonStyle(.plain)
 
-                // Item text
-                Text(item.text)
+                // Editable item text
+                TextField("Item", text: $item.text)
                     .font(.system(size: 17))
                     .foregroundColor(item.isChecked ? .secondary : .primary)
                     .strikethrough(item.isChecked, color: .secondary)
-                    .lineLimit(2)
+                    .focused($isEditing)
+                    .onChange(of: item.text) { _, newValue in
+                        onTextChange(newValue)
+                    }
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 // Price badge (if recognized)
-                if let _ = item.recognizedPrice {
+                if item.recognizedPrice != nil {
                     Text(item.displayPrice)
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.white)
@@ -124,21 +129,28 @@ struct ItemRowView: View {
 }
 
 #Preview {
+    @Previewable @State var item1 = ShoppingItem(text: "Milk $3.99", recognizedPrice: 3.99)
+    @Previewable @State var item2 = ShoppingItem(text: "Eggs $5.49", recognizedPrice: 5.49, isChecked: true)
+    @Previewable @State var item3 = ShoppingItem(text: "Bread (no price)", recognizedPrice: nil)
+
     VStack(spacing: 0) {
         ItemRowView(
-            item: ShoppingItem(text: "Milk $3.99", recognizedPrice: 3.99),
+            item: $item1,
             onToggle: {},
-            onDelete: {}
+            onDelete: {},
+            onTextChange: { _ in }
         )
         ItemRowView(
-            item: ShoppingItem(text: "Eggs $5.49", recognizedPrice: 5.49, isChecked: true),
+            item: $item2,
             onToggle: {},
-            onDelete: {}
+            onDelete: {},
+            onTextChange: { _ in }
         )
         ItemRowView(
-            item: ShoppingItem(text: "Bread (no price)", recognizedPrice: nil),
+            item: $item3,
             onToggle: {},
-            onDelete: {}
+            onDelete: {},
+            onTextChange: { _ in }
         )
     }
     .background(Color(red: 255/255, green: 252/255, blue: 225/255))

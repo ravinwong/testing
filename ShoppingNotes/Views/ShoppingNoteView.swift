@@ -85,11 +85,14 @@ struct ShoppingNoteView: View {
         ScrollViewReader { proxy in
             ScrollView {
                 LazyVStack(spacing: 0) {
-                    ForEach(viewModel.items) { item in
+                    ForEach($viewModel.items) { $item in
                         ItemRowView(
-                            item: item,
+                            item: $item,
                             onToggle: { viewModel.toggleCheck(for: item) },
-                            onDelete: { viewModel.deleteItem(item) }
+                            onDelete: { viewModel.deleteItem(item) },
+                            onTextChange: { newText in
+                                viewModel.updatePrice(for: item, with: newText)
+                            }
                         )
                         .id(item.id)
                     }
