@@ -1,12 +1,8 @@
 import SwiftUI
 
-/// A minimal view showing only a number that can be adjusted by dragging.
-/// - Drag right: increases value (+1, +5, +10 at stop points)
-/// - Drag left: decreases value (-1, -5, -10 at stop points)
 struct InvisibleNumberSlider: View {
     @State private var value: Double = 0
 
-    // Stop point thresholds in points
     private let stopPoints: [(threshold: CGFloat, change: Int)] = [
         (40, 1),
         (100, 5),
