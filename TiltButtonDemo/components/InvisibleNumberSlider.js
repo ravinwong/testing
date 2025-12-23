@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
@@ -11,9 +11,7 @@ import Animated, {
   interpolate,
   Extrapolation,
 } from 'react-native-reanimated';
-import * as Haptics from 'expo-haptics';
-
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 /**
  * InvisibleNumberSlider - A gesture-based invisible slider with stop points
@@ -34,6 +32,12 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
  * - height: Height of the invisible slider zone (default: 100)
  * - showDebugZones: Show the invisible zones for debugging (default: false)
  */
+
+const hapticOptions = {
+  enableVibrateFallback: true,
+  ignoreAndroidSystemSettings: false,
+};
+
 const InvisibleNumberSlider = ({
   value = 0,
   onChange,
@@ -80,19 +84,39 @@ const InvisibleNumberSlider = ({
     return { stop: 0, value: 0 };
   };
 
-  // Haptic feedback
+  // Haptic feedback using react-native-haptic-feedback
   const triggerHaptic = useCallback((intensity) => {
     const absIntensity = Math.abs(intensity);
-    switch (absIntensity) {
-      case 1:
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-        break;
-      case 2:
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-        break;
-      case 3:
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-        break;
+    try {
+      if (Platform.OS === 'ios') {
+        switch (absIntensity) {
+          case 1:
+            ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
+            break;
+          case 2:
+            ReactNativeHapticFeedback.trigger('impactMedium', hapticOptions);
+            break;
+          case 3:
+            ReactNativeHapticFeedback.trigger('impactHeavy', hapticOptions);
+            break;
+        }
+      } else {
+        // Android fallback
+        switch (absIntensity) {
+          case 1:
+            ReactNativeHapticFeedback.trigger('keyboardTap', hapticOptions);
+            break;
+          case 2:
+            ReactNativeHapticFeedback.trigger('notificationWarning', hapticOptions);
+            break;
+          case 3:
+            ReactNativeHapticFeedback.trigger('notificationError', hapticOptions);
+            break;
+        }
+      }
+    } catch (e) {
+      // Haptics not available (e.g., simulator)
+      console.log('Haptic feedback not available');
     }
   }, []);
 

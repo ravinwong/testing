@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { StyleSheet, Text, View, Switch, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Switch, SafeAreaView, StatusBar } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import InvisibleNumberSlider from './components/InvisibleNumberSlider';
 
@@ -10,6 +9,7 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={styles.container}>
+      <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.content}>
           <Text style={styles.title}>Invisible Number Slider</Text>
@@ -66,10 +66,8 @@ export default function App() {
           </View>
 
           <Text style={styles.techNote}>
-            Built with react-native-gesture-handler, react-native-reanimated, and expo-haptics
+            Built with react-native-gesture-handler, react-native-reanimated, and react-native-haptic-feedback
           </Text>
-
-          <StatusBar style="auto" />
         </View>
       </SafeAreaView>
     </GestureHandlerRootView>
